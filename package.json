@@ -1,0 +1,27 @@
+{
+  "name": "ariapi.js",
+  "version": "1.0.0",
+  "description": "ariapi.js is a javascript wrapper for the anime api AriAPI",
+  "main": "src/index.js",
+  "types": "types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattPlays/AriAPI.js.git"
+  },
+  "keywords": [
+    "animeapi",
+    "anime",
+    "animu",
+    "animu-api",
+    "anime-api"
+  ],
+  "author": "MattPlays (https://github.com/MattPlays/)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MattPlays/AriAPI.js/issues"
+  },
+  "homepage": "https://github.com/MattPlays/AriAPI.js#readme",
+  "dependencies": {
+    "axios": "^0.21.4"
+  }
+}
