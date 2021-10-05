@@ -39,18 +39,6 @@ class AriAPI {
         }).catch((err) => {throw new Error(err)});
     }
     /**
-     * Get a fact by its ID
-     * @param {number} id - The fact ID
-     * @returns {Promise<AnimeFact>}
-     */
-    async GetFactByID(id) {
-        return _instance({
-            url: `/facts/${id}`
-        }).then(({data}) => {
-            return new AnimeFact(data._id || id, data.fact, data.tags);
-        }).catch((err) => {throw new Error(err)});
-    }
-    /**
      * Generates a random password
      * @returns {Promise<{pass: string}>}
      */

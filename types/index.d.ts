@@ -22,7 +22,6 @@ type Password = {
 export declare class AnimeFact {
     constructor(token: string);
     getFact(maxLength?: number, minLength?: number, tags?: string[], matchAll?: boolean): Promise<Fact>;
-    getFactByID(id: number): Promise<Fact>;
     generatePassword(): Promise<Password>;
     getQuote(): Promise<AnimeQuote>;
     getWaifu(): Promise<AnimeWaifu>;
