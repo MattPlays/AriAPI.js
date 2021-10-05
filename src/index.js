@@ -39,31 +39,6 @@ class AriAPI {
         }).catch((err) => {throw new Error(err)});
     }
     /**
-     * Get a paginated list of all facts. This method supports several filter and sorting options.
-     * @param {number} [limit] - The number of facts to return per request. (for pagination). `Min: 1 Max: 100 Default: 20`
-     * @param {number} [skip] - The number of items to skip (for pagination). `Min: 0 Default: 0`
-     * @param {string[]} [tags] - Filter facts by tag(s). Takes a list of one or more tag names.
-     * @param {boolean} [matchAll] - Does the fact have to match **All** of the provided tags? `true` by *default*
-     * @returns {Promise<{lastIndex: number, resultsCount: number, totalCount: number, results: AnimeFact[]}>}
-     */
-    async getFacts(limit = 20, skip = 0, tags, matchAll = true) {
-        return _instance({
-            url: "/fact",
-            params: {
-                "limit": limit,
-                "skip": skip,
-                "tags": (tags) ? (matchAll) ? encodeURI(tags.join(",")) : encodeURI(tags.join("|")) : ""
-            }
-        }).then(({data}) => {
-           return {
-                lastIndex: data.lastIndex,
-                resultsCount: data.resultsCount,
-                totalCount: data.totalCount,
-                results: data.results.map((res) => {return new AnimeFact(res._id, res.fact, res.tags)})
-            };
-        }).catch(err => {throw new Error(err)})
-    }
-    /**
      * Get a fact by its ID
      * @param {number} id - The fact ID
      * @returns {Promise<AnimeFact>}
