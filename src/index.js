@@ -2,6 +2,9 @@ const {create} = require("axios").default;
 const AnimeFact = require("./AnimeFact");
 const AnimeQuote = require("./AnimeQuote");
 const AnimeWaifu = require("./AnimeWaifu");
+const PrettyError = require("pretty-error");
+let pe = new PrettyError();
+pe.start()
 let _instance;
 class AriAPI {
     /**
@@ -36,7 +39,7 @@ class AriAPI {
             }
         }).then(({data}) => {
             return new AnimeFact(data._id, data.fact, data.tags)
-        }).catch((err) => {throw new Error(err)});
+        }).catch((err) => {throw pe.render(err)});
     }
     /**
      * Generates a random password
@@ -47,7 +50,7 @@ class AriAPI {
             url: "/password"
         }).then(({data}) => {
             return data
-        }).catch((err) => {throw new Error(err)});
+        }).catch((err) => {throw pe.render(err)});
     }
     /**
      * Returns a single random anime quote
@@ -58,7 +61,7 @@ class AriAPI {
             url: "/quote"
         }).then(({data}) => {
             return new AnimeQuote(data._id, data.quote, data.anime, data.said);
-        }).catch((err) => {throw new Error(err)})
+        }).catch((err) => {throw pe.render(err)})
     }
     /**
      * Returns a single random waifu from the database
@@ -69,7 +72,20 @@ class AriAPI {
             url: "/waifu"
         }).then(({data}) => {
             return new AnimeWaifu(data._id, data.images, data.names, data.from, data.statistics);
-        }).catch((err) => {throw new Error(err)});
+        }).catch((err) => {throw pe.render(err)});
+    }
+    /**
+     * Returns a random gif of the desired endpoint
+     * @param {"Angry" | "Baka" | "Bite" | "Blush" | "Bonk" | "Bored" | "Bully" | "Bye" | "Chase" | "Cheer" | "Cringe" | "Cry" | "Cuddle" | "Dab" | "Dance" | "Die" | "Disgust" | "Facepalm" | "Feed" | "Glomp" | "Happy" | "Hi" | "Highfive" | "Hold" | "Hug" | "Kick" | "Kill" | "Kiss" | "Laugh" | "Lick" | "Love" | "Lurk" | "Midfing" | "Nervous" | "Nom" | "Nope" | "Nuzzle" | "Panic" | "Pat" | "Peck" | "Poke" | "Pout" | "Punch" | "Run" | "Sad" | "Shoot" | "Shrug" | "Sip" | "Slap" | "Sleepy" | "Smile" | "Smug" | "Stab" | "Stare" | "Suicide" | "Tease" | "Think" | "Thumbsup" | "Tickle" | "Triggered" | "wag" | "Wave" | "Wink" | "Yes"} type 
+     * @returns {Promise<{url: string}>}
+     */
+    async getGif(type) {
+        if(!type) return pe.render(new Error("Must input a valid type."));
+        return _instance({
+            url: `/${type}`
+        }).then(({data}) => {
+            return data;
+        }).catch((err) => {throw pe.render(err)})
     }
 }
 module.exports = AriAPI;
