@@ -1,6 +1,6 @@
 {
   "name": "ariapi.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ariapi.js is a javascript wrapper for the anime api AriAPI",
   "main": "src/index.js",
   "types": "types/index.d.ts",
